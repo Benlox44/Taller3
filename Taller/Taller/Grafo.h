@@ -68,10 +68,12 @@ class Grafo
             return nombresPesos;
         }
 
-        void printRoute(Nodo* inicio, Nodo* destino)
+        bool printRoute(Nodo* inicio, Nodo* destino)
         {
+            bool found = false;
             if (destino->getTiempo() != DBL_MAX)
             {
+                found = true;
                 cout << "Fastest route from " << inicio->getNombre() 
                     << " to " << destino->getNombre() << endl;
 
@@ -80,7 +82,7 @@ class Grafo
                 while (actual != nullptr && padre != nullptr)
                 {
                     cout << actual->getNombre() << " <- ";
-                    cout << padre->getNombre() << " tiempo: " << actual->getTiempo() << " [s]" << endl;
+                    cout << padre->getNombre() << " time: " << actual->getTiempo() << " [s]" << endl;
                     
                     actual = padre; // Mover al siguiente nivel
                     padre = actual->getPadre(); // Actualizar el padre
@@ -93,10 +95,26 @@ class Grafo
                 cout << "There isn't any route from " << inicio->getNombre() 
                     << " to " << destino->getNombre() << endl;
             }
+            return found;
+        }
+
+        void sentFile(int weight, int userId, int destinationId)
+        {
+            Nodo* inicio = buscarNodo(userId);
+            Nodo* destino = buscarNodo(destinationId);
+
+            pair<Nodo*,int> inbox = make_pair(inicio, weight);
+            if (destino->getTiempo() != DBL_MAX) destino->getInbox().push_back(inbox);
         }
         
-        void bellmanFord(int weight, int userId, int destinationId)
+        bool bellmanFord(int weight, int userId, int destinationId)
         {
+            if (weight == -1 || userId == -1 || destinationId == -1)
+            {
+                cout << "Missing data" << endl;
+                return false;
+            }
+
             Nodo* inicio = buscarNodo(userId);
             Nodo* destino = buscarNodo(destinationId);
 
@@ -132,9 +150,7 @@ class Grafo
                 }
             }
             //padres listos, print padres de destino a inicio
-            printRoute(inicio, destino);
-            
-            pair<Nodo*,int> inbox = make_pair(inicio, weight);
-            if (destino->getTiempo() != DBL_MAX) destino->getInbox().push_back(inbox);
+            bool found = printRoute(inicio, destino);
+            return found;
         }
 };

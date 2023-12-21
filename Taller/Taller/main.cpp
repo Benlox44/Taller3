@@ -162,6 +162,26 @@ void inbox(Grafo grafo, int userId)
     }
 }
 
+void sent(Grafo& grafo, int weight, int userId, int destinationId)
+{
+    bool found = grafo.bellmanFord(weight, userId, destinationId);
+    if (!found) return;
+
+    cout << endl;
+    char option;
+
+    while (true)
+    {
+        cout << "Sent file? [Y/N]: ";
+        cin >> option;
+        if (!cin || (tolower(option) != 'y' && tolower(option) != 'n')) cinError(cin);
+        else { break; }
+    }
+
+    if (option == 'n') return;
+    grafo.sentFile(weight, userId, destinationId);
+}
+
 int main()
 {
     Grafo grafo;
@@ -206,7 +226,7 @@ int main()
                 break;
 
             case 4:
-                grafo.bellmanFord(weight, userId, destinationId);
+                sent(grafo, weight, userId, destinationId);
                 break;
 
             case 5:
