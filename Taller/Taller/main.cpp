@@ -122,7 +122,7 @@ void data(Grafo& grafo, int userId)
     {
         if (velocidad == 300 || velocidad == 600)
         {
-            cout << "Upgrade your speed by 300 [mb/s] for 20$ [Y/N]" << endl;
+            cout << "Upgrade your speed by 300 [mb/s] for 20$ [Y/N]: ";
             cin >> option;
 
             if (!cin || (tolower(option) != 'y' && tolower(option) != 'n')) cinError(cin);
@@ -172,7 +172,7 @@ void sent(Grafo& grafo, int weight, int userId, int destinationId)
 
     while (true)
     {
-        cout << "Sent file? [Y/N]: ";
+        cout << "Confirm? [Y/N]: ";
         cin >> option;
         if (!cin || (tolower(option) != 'y' && tolower(option) != 'n')) cinError(cin);
         else { break; }
@@ -201,8 +201,8 @@ int main()
         cout << "1. Set user's ID" << endl;
         cout << "2. Set destination ID" << endl;
         cout << "3. Set file's weight" << endl;
-        cout << "4. Sent file" << endl;
-        cout << "5. Change profile data" << endl;
+        cout << "4. Send file" << endl;
+        cout << "5. Upgrade router connection speed" << endl;
         cout << "6. Inbox" << endl;
         cout << "7. Exit" << endl;
         cout << "Enter an option: ";
