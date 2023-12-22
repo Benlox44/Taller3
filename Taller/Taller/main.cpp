@@ -7,6 +7,7 @@
 
 void setNodos(Grafo& grafo)
 {
+    //Lee el archivo csv y crea los nodos y los agrega a nodos del Grafo
     ifstream file("servidores.csv");
 
     string line;
@@ -35,6 +36,7 @@ void setNodos(Grafo& grafo)
 
 void setConexiones(Grafo& grafo)
 {
+    //Lee el archivo csv y crea las conexiones de los nodos del Grafo
     ifstream file("conexiones.csv");
 
     string line;
@@ -60,6 +62,7 @@ void setConexiones(Grafo& grafo)
 
 void cinError(istream& cin)
 {
+    //Mensaje de error y limpia cin
     cin.clear();
     cin.ignore(INT_MAX, '\n');
     cout << "Invalid value" << endl;
@@ -67,6 +70,7 @@ void cinError(istream& cin)
 
 int setWeight()
 {
+    //Pregunta un peso para el archivo y lo devuelve
     int weight;
 
     while (true)
@@ -82,6 +86,7 @@ int setWeight()
 
 int setId(Grafo& grafo)
 {
+    //Pregunta al usuario un ID, verifica si esa ID pertenece a un cliente y la devuelve
     int id;
 
     while (true)
@@ -103,6 +108,7 @@ int setId(Grafo& grafo)
 
 void data(Grafo& grafo, int userId)
 {
+    //Permite modificar la velocidad de la conexion entre el cliente y su router
     if (userId == -1)
     {
         cout << "Not logged in" << endl;
@@ -139,6 +145,7 @@ void data(Grafo& grafo, int userId)
 
 void inbox(Grafo grafo, int userId)
 {
+    //printea el inbox del usuario
     if (userId == -1)
     {
         cout << "Not logged in" << endl;
@@ -164,6 +171,7 @@ void inbox(Grafo grafo, int userId)
 
 void sent(Grafo& grafo, int weight, int userId, int destinationId)
 {
+    //Printea la ruta del archivo y envia al inbox del destino si se desea
     bool found = grafo.bellmanFord(weight, userId, destinationId);
     if (!found) return;
 
@@ -182,7 +190,7 @@ void sent(Grafo& grafo, int weight, int userId, int destinationId)
     grafo.sentFile(weight, userId, destinationId);
 }
 
-int main()
+int main() //Menu simple que deriva a todas las funciones anteriores
 {
     Grafo grafo;
 

@@ -12,10 +12,10 @@ class Nodo
     private:
         int id;
         string nombre;
-        bool cliente;
-        vector<pair<Nodo*, pair<int, int>>> conexiones; //velocidad y distancia
-        double tiempo;
-        Nodo* padre;
+        bool cliente; //false = router
+        vector<pair<Nodo*, pair<int, int>>> conexiones; //Vecino, velocidad y distancia
+        double tiempo; //Atributo para el algoritmo BellmanFord
+        Nodo* padre; // Atributo para el algoritmo BellmanFord
         vector<pair<Nodo*,int>> inbox; //inicio y peso
 
     public:
